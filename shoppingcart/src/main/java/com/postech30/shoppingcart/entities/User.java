@@ -1,4 +1,4 @@
-package com.postech30.shoppingcart.Entities;
+package com.postech30.shoppingcart.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Users {
+public class User {
     @Id
     private Long id;
 
