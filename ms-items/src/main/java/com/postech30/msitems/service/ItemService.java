@@ -2,11 +2,11 @@ package com.postech30.msitems.service;
 
 import com.postech30.msitems.model.Item;
 import com.postech30.msitems.repository.ItemRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ItemService {
@@ -17,21 +17,21 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public ResponseEntity<?> listAllItems() {
-        List<Item> items = itemRepository.findAll();
+    public ResponseEntity<Page<Item>> listAllItems(Pageable pageable) {
+        Page<Item> items = itemRepository.findAll(pageable);
         if (!items.isEmpty()) {
             return ResponseEntity.ok().body(items);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existem itens cadastrados.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Page.empty());
         }
     }
 
-    public ResponseEntity<?> listUserItems(int userId) {
-        List<Item> items = itemRepository.findByUserId(userId);
+    public ResponseEntity<Page<Item>> listUserItems(int userId, Pageable pageable) {
+        Page<Item> items = itemRepository.findByUserId(userId, pageable);
         if (!items.isEmpty()) {
             return ResponseEntity.ok().body(items);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existem itens cadastrados para o usuário.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Page.empty());
         }
     }
 

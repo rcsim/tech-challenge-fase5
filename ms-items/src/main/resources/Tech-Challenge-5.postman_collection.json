@@ -15,12 +15,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/items",
+							"raw": "{{url}}/items?page=0&size=5",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"items"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							]
 						}
 					},
@@ -32,7 +42,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/items/user/1",
+							"raw": "{{url}}/items/user/1?page=0&size=5",
 							"host": [
 								"{{url}}"
 							],
@@ -40,6 +50,16 @@
 								"items",
 								"user",
 								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							]
 						}
 					},
@@ -70,7 +90,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\":1,\r\n    \"name\":\"Camiseta Braca\",\r\n    \"description\":\"Camiseta de algodão branca.\",\r\n    \"stocktaking\":\"10\",\r\n    \"amount\": 20\r\n    }",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"name\": \"Camiseta Braca\",\r\n    \"description\": \"Camiseta de algodão branca.\",\r\n    \"stocktaking\": \"10\",\r\n    \"amount\": 20\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

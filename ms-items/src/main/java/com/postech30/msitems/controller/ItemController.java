@@ -8,6 +8,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -40,8 +43,8 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
     })
-    public ResponseEntity<?> listAllItems() {
-        return itemService.listAllItems();
+    public ResponseEntity<Page<Item>> listAllItems(@PageableDefault(size = 5) Pageable pageable) {
+        return itemService.listAllItems(pageable);
     }
 
     @GetMapping("/user/{userId}")
@@ -55,8 +58,8 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
     })
-    public ResponseEntity<?> listUserItems(@PathVariable int userId) {
-        return itemService.listUserItems(userId);
+    public ResponseEntity<Page<Item>> listUserItems(@PathVariable int userId, @PageableDefault(size = 5) Pageable pageable) {
+        return itemService.listUserItems(userId, pageable);
     }
 
     @GetMapping("/{id}")
