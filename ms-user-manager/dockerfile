@@ -1,0 +1,5 @@
+FROM openjdk:17-jdk-alpine
+RUN mkdir /app
+WORKDIR /app
+COPY target/*.jar /app/ms-user-manager.jar
+CMD ["java","-jar","/app/ms-user-manager.jar"]
