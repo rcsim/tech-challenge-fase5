@@ -1,4 +1,4 @@
-package com.postech30.shoppingcart;
+package com.postech30.msshoppingcart;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
