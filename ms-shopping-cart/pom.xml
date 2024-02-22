@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.postech30</groupId>
-	<artifactId>shoppingcart</artifactId>
+	<artifactId>msshoppingcart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shoppingcart</name>
 	<description>Shopping Cart for Tech-Challenge Fase 5</description>
@@ -55,7 +55,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
