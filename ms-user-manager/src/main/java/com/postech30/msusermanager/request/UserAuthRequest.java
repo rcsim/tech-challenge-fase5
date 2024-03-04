@@ -1,4 +1,4 @@
 package com.postech30.msusermanager.request;
 
-public record UserAuthRequest(String login, String password) {
+public record UserAuthRequest(String name, String password) {
 }
