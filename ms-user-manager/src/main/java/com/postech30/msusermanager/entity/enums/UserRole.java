@@ -2,7 +2,7 @@ package com.postech30.msusermanager.entity.enums;
 
 public enum UserRole {
 
-    USER("user"), ADMIN("admin");
+    ADMIN("admin"), USER("user");
 
     private String role;
 
@@ -11,6 +11,6 @@ public enum UserRole {
     }
 
     public String getRole(){
-        return role;
+        return this.role;
     }
 }
