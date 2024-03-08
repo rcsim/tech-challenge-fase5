@@ -6,8 +6,12 @@ import com.postech30.msusermanager.entity.User;
 import com.postech30.msusermanager.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -26,5 +30,41 @@ public class UserService {
         return new UserViewDTO(userSaved);
     }
 
+    public List<UserViewDTO> listAllUser(){
+        return userRepository
+                .findAll()
+                .stream()
+                .map(UserViewDTO::new)
+                .toList();
+    }
+
+    public UserViewDTO findUserById(String id){
+        Optional<User> userOptional =
+                userRepository.findById(id);
+        if (userOptional.isPresent()){
+            return new UserViewDTO(userOptional.get());
+        } else {
+            throw new UsernameNotFoundException("Usuário não encontrado na base de dados!");
+        }
+    }
+
+    public void deleteUser(String id){
+        Optional<User> userOptional =
+                userRepository.findById(id);
+        if (userOptional.isPresent()){
+            userRepository.delete(userOptional.get());
+        } else {
+            throw new RuntimeException("Usuário não encontrado!");
+        }
+    }
+
+    public User updateUser(User user){
+        Optional<User> userOptional =
+                userRepository.findById(user.getUserId());
+        if (userOptional.isPresent()) {
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("Usuário não encontrado!");
+        }
+    }
 }
-gi
