@@ -3,6 +3,7 @@ package com.postech30.msusermanager.service;
 import com.postech30.msusermanager.dto.UserCreateDTO;
 import com.postech30.msusermanager.dto.UserViewDTO;
 import com.postech30.msusermanager.entity.User;
+import com.postech30.msusermanager.exception.UserDoNotFindException;
 import com.postech30.msusermanager.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class UserService {
         if (userOptional.isPresent()){
             return new UserViewDTO(userOptional.get());
         } else {
-            throw new UsernameNotFoundException("Usuário não encontrado na base de dados!");
+            throw new UserDoNotFindException("Usuário não encontrado na base de dados!");
         }
     }
 
