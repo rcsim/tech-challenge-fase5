@@ -55,7 +55,7 @@ public class UserService {
         if (userOptional.isPresent()){
             userRepository.delete(userOptional.get());
         } else {
-            throw new RuntimeException("Usuário não encontrado!");
+            throw new UserDoNotFindException("Usuário não encontrado!");
         }
     }
 
@@ -65,7 +65,7 @@ public class UserService {
         if (userOptional.isPresent()) {
             return userRepository.save(user);
         } else {
-            throw new RuntimeException("Usuário não encontrado!");
+            throw new UserDoNotFindException("Usuário não encontrado!");
         }
     }
 }
