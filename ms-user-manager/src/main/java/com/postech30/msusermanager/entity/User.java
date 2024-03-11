@@ -32,7 +32,7 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         System.out.println(this.role);
         if (this.role == UserRole.ADMIN){
-            System.out.println("admin cara");
+            System.out.println("admin");
             return List.of(
                     new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_USER")
