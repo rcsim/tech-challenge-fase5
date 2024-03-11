@@ -38,7 +38,7 @@ public class UserService {
                 .toList();
     }
 
-    public UserViewDTO findUserById(String id){
+    public UserViewDTO findUserById(Long id){
         Optional<User> userOptional =
                 userRepository.findById(id);
         if (userOptional.isPresent()){
@@ -48,7 +48,7 @@ public class UserService {
         }
     }
 
-    public void deleteUser(String id){
+    public void deleteUser(Long id){
         Optional<User> userOptional =
                 userRepository.findById(id);
         if (userOptional.isPresent()){

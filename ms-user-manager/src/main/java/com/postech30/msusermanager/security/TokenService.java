@@ -16,12 +16,12 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 @Service
 public class TokenService {
 
-    @Value("${api.key.token.secret}")
-    private String secret;
+    @Value("${key.token.secret}")
+    private String keySecret;
 
     public String genToken(User user){
         try{
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(keySecret);
             String token = JWT.create()
                     .withIssuer("msusermanager")
                     .withSubject(user.getEmail())
@@ -33,9 +33,13 @@ public class TokenService {
         }
     }
 
+    private Instant genExpirationDate(){
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    }
+
     public String validateToken(String token){
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(keySecret);
             return JWT.require(algorithm)
                     .withIssuer("msusermanager")
                     .build()
@@ -44,10 +48,6 @@ public class TokenService {
         } catch (JWTVerificationException e){
             return " ";
         }
-    }
-
-    private Instant genExpirationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
 }

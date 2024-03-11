@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 public record UserCreateDTO(
 
-        String userId,
+        Long userId,
 
         @NotBlank(message = "O nome de usuário é obrigatório!")
         String name,

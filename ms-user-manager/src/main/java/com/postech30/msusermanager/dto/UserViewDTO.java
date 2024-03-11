@@ -4,7 +4,7 @@ import com.postech30.msusermanager.entity.User;
 
 public record UserViewDTO(
 
-        String userId,
+        Long userId,
         String name,
         String email
 ) {

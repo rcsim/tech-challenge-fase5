@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.token.TokenService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -28,9 +27,6 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository repository;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -41,8 +37,7 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(userDto.email(), userDto.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         System.out.println(auth.getPrincipal());
-        //String token = tokenService
-//        var token = tokenService.verifyToken((User) auth.getPrincipal());
+        String token = tokenService.genToken((User) auth.getPrincipal());
         return ResponseEntity.ok(new TokenDTO(token));
     }
 
