@@ -16,20 +16,20 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 @Service
 public class TokenService {
 
-    @Value("${api.security.token.secret}")
+    @Value("${api.key.token.secret}")
     private String secret;
 
-    public String generateToken(User user){
+    public String genToken(User user){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
-                    .withIssuer("auth-api")
+                    .withIssuer("msusermanager")
                     .withSubject(user.getEmail())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;
-        } catch (JWTCreationException exception) {
-            throw new RuntimeException("Token não foi gerado!", exception);
+        } catch (JWTCreationException e) {
+            throw new RuntimeException("O Token não foi gerado!");
         }
     }
 
@@ -37,11 +37,11 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                    .withIssuer("auth-api")
+                    .withIssuer("msusermanager")
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException e){
             return " ";
         }
     }

@@ -1,12 +1,15 @@
 package com.postech30.msusermanager.controller;
 
+import com.postech30.msusermanager.dto.LoginDTO;
+import com.postech30.msusermanager.dto.TokenDTO;
+import com.postech30.msusermanager.dto.UserCreateDTO;
+import com.postech30.msusermanager.dto.UserViewDTO;
 import com.postech30.msusermanager.entity.User;
 import com.postech30.msusermanager.repository.UserRepository;
-import com.postech30.msusermanager.request.UserRequest;
-import com.postech30.msusermanager.request.UserAuthRequest;
 
-import com.postech30.msusermanager.response.UserResponse;
+import com.postech30.msusermanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,24 +31,35 @@ public class AuthenticationController {
     private UserRepository repository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid UserAuthRequest data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+    public ResponseEntity login(@RequestBody @Valid LoginDTO userDto){
+        var usernamePassword = new UsernamePasswordAuthenticationToken(userDto.email(), userDto.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
-        return ResponseEntity.ok(new UserResponse(token));
+        System.out.println(auth.getPrincipal());
+        //String token = tokenService
+//        var token = tokenService.verifyToken((User) auth.getPrincipal());
+        return ResponseEntity.ok(new TokenDTO(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid UserRequest data){
-        if(this.repository.findByLogin(data.login()) != null)
-            return ResponseEntity.badRequest().build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserViewDTO register(@RequestBody @Valid UserCreateDTO userCreateDTO){
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.role());
-        this.repository.save(newUser);
-        return ResponseEntity.ok().build();
+        UserViewDTO userSaved = null;
+        userSaved = userService.saveUser(userCreateDTO);
+        return userSaved;
+
+//        if(this.repository.findByLogin(data.login()) != null)
+//            return ResponseEntity.badRequest().build();
+//
+//        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+//        User newUser = new User(data.login(), encryptedPassword, data.role());
+//        this.repository.save(newUser);
+//        return ResponseEntity.ok().build();
     }
 }
