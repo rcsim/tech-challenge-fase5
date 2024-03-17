@@ -1,12 +1,13 @@
 package com.postech30.payment.controller;
 
-import com.postech30.payment.dto.CartDTO;
+import com.postech30.payment.dto.CardDTO;
 import com.postech30.payment.dto.PagamentoRequestDTO;
 import com.postech30.payment.dto.PaymentDTO;
-import com.postech30.payment.dto.UserDTO;
-import com.postech30.payment.enums.PaymentMethod;
+import com.postech30.payment.dto.ShoppingCartDTO;
+import com.postech30.payment.service.CardService;
 import com.postech30.payment.service.CartService;
-import com.postech30.payment.service.UserService;
+import com.postech30.payment.service.PaymentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,28 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
+   @Autowired
+   private CartService cartService;
 
+    @Autowired
+    private CardService cardService;
 
-    private UserService userService;
-
-    private CartService cartService;
+    @Autowired
+    private PaymentService paymentService;
 
 @PostMapping("/chekout")
     public ResponseEntity<PaymentDTO> checkout(@RequestBody PagamentoRequestDTO request){
-    //Esperar objeto do user
-    UserDTO usuario = userService.getUser(request.getUsuerId());
-    // Esperar objeto do cart
-   CartDTO carrinho = cartService.getCart(request.getCartID());
+    ShoppingCartDTO carrinho = cartService.getCart(request.getCartID());
+    CardDTO cardDTO = cardService.getCardById(request.getCardId());
 
-    PaymentDTO payment = new PaymentDTO();
-
-    if (request.getPaymentMethod() == PaymentMethod.CARTAO_CREDITO) {
-        // Chamar API de pagamento
-    } else if (request.getPaymentMethod() == PaymentMethod.PIX) {
-        // Chamar API de pagamento
-    }
-
+    var payment = paymentService.checkout(carrinho,cardDTO);
     return ResponseEntity.ok().body(payment);
-
     }
 }

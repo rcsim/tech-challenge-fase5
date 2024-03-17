@@ -1,7 +1,7 @@
 package com.postech30.payment.service;
 
-import com.postech30.payment.dto.CartDTO;
+import com.postech30.payment.dto.ShoppingCartDTO;
 
 public interface CartService {
-    CartDTO getCart(Long cartID);
+    ShoppingCartDTO getCart(Long cartID);
 }
