@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.RouterFunctions;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import static org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions.route;
@@ -18,7 +19,20 @@ public class GatewayApplication {
 	}
 
 	@Bean
-	public RouterFunction<ServerResponse> getRoute() {
-		return route("card-service").GET("/get", http("http://localhost:8084")).build();
+	public RouterFunction<ServerResponse> helloRoute() {
+		return RouterFunctions.route()
+				.GET("/hello", request -> ServerResponse.ok().body("Hello World"))
+				.build();
 	}
+
+	@Bean
+	public RouterFunction<ServerResponse> cardRoute() {
+		return route("card_route")
+				.GET("/card/*", http("http://localhost:8084/card/*"))
+				.POST("/card", http("http://localhost:8084/card"))
+				.PUT("/card/*", http("http://localhost:8084/card/*"))
+				.DELETE("/card/*", http("http://localhost:8084/card/*"))
+				.build();
+	}
+
 }

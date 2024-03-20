@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: card-service
-          uri: http://localhost:8084
-          predicates:
-            - Path=/card
