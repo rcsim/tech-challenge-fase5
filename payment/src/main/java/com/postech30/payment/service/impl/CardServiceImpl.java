@@ -35,4 +35,19 @@ public class CardServiceImpl implements CardService {
         public void deleteCard(Long id) {
             cardRepository.deleteById(id);
         }
+
+    @Override
+    public CardDTO updatePayments(Long id, CardDTO cardDTO) {
+        Card card =  cardRepository.findById(id).orElseThrow(() -> new CardNotFoundException("Cartão não encontrado"));;
+        this.mapToUpdate(card,cardDTO);
+        return new CardDTO(cardRepository.save(card));
+    }
+
+    private void mapToUpdate(Card card, CardDTO cardDTO){
+        card.setCardNumber(cardDTO.getCardNumber());
+        card.setCardHolderName(cardDTO.getCardHolderName());
+        card.setCvv(cardDTO.getCvv());
+        card.setExpirationDate(cardDTO.getExpirationDate());
+
+    }
 }

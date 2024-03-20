@@ -13,4 +13,6 @@ public interface CardService {
 
     CardDTO createCard(CardDTO cardDTO);
     void deleteCard(Long id);
+
+    CardDTO updatePayments(Long id, CardDTO cardDTO);
 }
