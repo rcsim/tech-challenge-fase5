@@ -1,24 +1,35 @@
 package com.postech30.msshoppingcart.service.impl;
 
+import com.postech30.msshoppingcart.dto.ProductDTO;
 import com.postech30.msshoppingcart.dto.ShoppingCartDTO;
 import com.postech30.msshoppingcart.entity.ShoppingCart;
 import com.postech30.msshoppingcart.mapper.ShoppingCartMapper;
 import com.postech30.msshoppingcart.repository.ShoppingCartRepository;
+import com.postech30.msshoppingcart.service.ProductService;
 import com.postech30.msshoppingcart.service.ShoppingCartService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
+    private final ProductService productService;
 
     @Override
     public ShoppingCartDTO createShoppingCart(ShoppingCartDTO shoppingCartDTO) {
+
+        List<ProductDTO> products = shoppingCartDTO.getProducts();
+
+        for(ProductDTO product : products){
+            productService.saveProduct(product);
+        }
+
         ShoppingCart shoppingCart = ShoppingCartMapper.toEntity(shoppingCartDTO);
         ShoppingCart savedShoppingCart = shoppingCartRepository.save(shoppingCart);
         return ShoppingCartMapper.toDTO(savedShoppingCart);

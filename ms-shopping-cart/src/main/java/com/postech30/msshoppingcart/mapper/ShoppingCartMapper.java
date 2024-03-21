@@ -29,7 +29,6 @@ public class ShoppingCartMapper {
                 .collect(Collectors.toList());
 
         return new ShoppingCart(
-                shoppingCartDTO.getId(),
                 products,
                 shoppingCartDTO.getUserId(),
                 shoppingCartDTO.getTotalValue()
