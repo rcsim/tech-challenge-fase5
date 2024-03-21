@@ -2,6 +2,7 @@ package com.postech30.payment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.postech30.payment.entity.Card;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,19 +17,19 @@ import lombok.Setter;
 public class CardDTO {
     @JsonProperty("id")
     public long id;
-    @NotEmpty
+    @NotBlank
     @JsonProperty("numero_Card")
     private String cardNumber;
-    @NotEmpty
+    @NotBlank
     @JsonProperty("titular_Card")
     private String cardHolderName;
-    @NotEmpty
+    @NotBlank
     @JsonProperty("data_expiracao")
     private String expirationDate;
-    @NotEmpty
+    @NotBlank
     @JsonProperty("codigo_seguranca")
     private String cvv;
-    @NotEmpty
+    @NotBlank
     @JsonProperty("userId")
     private String userId;
 
