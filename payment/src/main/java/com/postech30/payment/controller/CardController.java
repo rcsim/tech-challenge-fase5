@@ -7,14 +7,17 @@ import com.postech30.payment.service.CardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping("/card")
 public class CardController {
 
@@ -28,7 +31,7 @@ public class CardController {
             @ApiResponse(responseCode = "400", description = "informação de entrada incorreta")
     })
     @PostMapping
-    public ResponseEntity<CardDTO> createCard(@RequestBody CardDTO cardDTO) {
+    public ResponseEntity<CardDTO> createCard(@RequestBody @Valid CardDTO cardDTO) {
         CardDTO createdCard = cardService.createCard(cardDTO);
         return new ResponseEntity<>(createdCard, HttpStatus.CREATED);
     }
@@ -76,7 +79,7 @@ public class CardController {
             @ApiResponse(responseCode = "400", description = "informação de entrada incorreta")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<CardDTO> updateCard(@PathVariable Long id,@RequestBody CardDTO cardDTO){
+    public ResponseEntity<CardDTO> updateCard(@PathVariable Long id,@RequestBody @Valid CardDTO cardDTO){
        CardDTO response= cardService.updatePayments(id,cardDTO);
         return ResponseEntity.ok().body(response);
     }

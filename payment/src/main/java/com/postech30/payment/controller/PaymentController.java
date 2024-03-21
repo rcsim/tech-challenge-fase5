@@ -7,31 +7,53 @@ import com.postech30.payment.dto.ShoppingCartDTO;
 import com.postech30.payment.service.CardService;
 import com.postech30.payment.service.CartService;
 import com.postech30.payment.service.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Validated
 @RequestMapping("/payment")
 public class PaymentController {
-   @Autowired
-   private CartService cartService;
 
-    @Autowired
-    private CardService cardService;
 
-    @Autowired
-    private PaymentService paymentService;
+    private final CartService cartService;
 
-@PostMapping("/chekout")
-    public ResponseEntity<PaymentDTO> checkout(@RequestBody PagamentoRequestDTO request){
-    ShoppingCartDTO carrinho = cartService.getCart(request.getCartID());
-    CardDTO cardDTO = cardService.getCardById(request.getCardId());
+    private final CardService cardService;
 
-    var payment = paymentService.checkout(carrinho,cardDTO);
-    return ResponseEntity.ok().body(payment);
+    private final PaymentService paymentService;
+
+    public PaymentController(CartService cartService, CardService cardService, PaymentService paymentService) {
+        this.cartService = cartService;
+        this.cardService = cardService;
+        this.paymentService = paymentService;
+    }
+
+    @PostMapping("/chekout")
+    @Operation(summary = "Finalizar compra.")
+    @ApiResponses(value = {
+                @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PaymentDTO.class))}),
+            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
+    })
+    public ResponseEntity<PaymentDTO> checkout(@RequestBody @Valid PagamentoRequestDTO request) {
+        ShoppingCartDTO carrinho = cartService.getCart(request.getCartID());
+        CardDTO cardDTO = cardService.getCardById(request.getCardId());
+
+        var payment = paymentService.checkout(carrinho, cardDTO);
+        return ResponseEntity.ok().body(payment);
     }
 }
