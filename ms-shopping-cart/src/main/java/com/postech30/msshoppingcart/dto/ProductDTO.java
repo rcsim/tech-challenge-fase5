@@ -19,7 +19,10 @@ public class ProductDTO {
     private Long id;
 
     @JsonProperty
-    @NotBlank(message = "O nome do produto é um campo de preenchimento obrigatório")
+    @NotBlank(message = "O id do produto é um campo de preenchimento obrigatório")
+    private Long productId;
+
+    @JsonProperty
     private String name;
 
     @JsonProperty
@@ -30,4 +33,10 @@ public class ProductDTO {
     @NotNull(message = "A quantidade do produto é um campo de preenchimento obrigatório")
     private int quantity;
 
+    public ProductDTO(long productId, String name, BigDecimal price, int quantity) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }

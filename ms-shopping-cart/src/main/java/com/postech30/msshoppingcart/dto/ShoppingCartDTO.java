@@ -29,4 +29,9 @@ public class ShoppingCartDTO {
     @JsonProperty
     private BigDecimal totalValue;
 
+    public ShoppingCartDTO(List<ProductDTO> productDTOs, Long userId, BigDecimal totalValue) {
+        this.products = productDTOs;
+        this.userId = userId;
+        this.totalValue = totalValue;
+    }
 }
