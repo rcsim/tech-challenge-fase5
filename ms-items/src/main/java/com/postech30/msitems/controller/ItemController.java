@@ -79,7 +79,7 @@ public class ItemController {
         return itemService.listById(id);
     }
 
-    @GetMapping("/itemsByIds")
+    @PostMapping("/itemsByIds")
     @Operation(summary = "Listar itens por uma lista de IDs.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),

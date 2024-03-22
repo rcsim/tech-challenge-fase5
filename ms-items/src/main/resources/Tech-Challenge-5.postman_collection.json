@@ -85,11 +85,8 @@
 				},
 				{
 					"name": "Buscar items por IDs",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
