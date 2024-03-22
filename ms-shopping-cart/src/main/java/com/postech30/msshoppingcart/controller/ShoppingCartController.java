@@ -1,6 +1,8 @@
 package com.postech30.msshoppingcart.controller;
 
+import com.postech30.msshoppingcart.dto.ProductDTO;
 import com.postech30.msshoppingcart.dto.ShoppingCartDTO;
+import com.postech30.msshoppingcart.service.ProductService;
 import com.postech30.msshoppingcart.service.ShoppingCartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
