@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@Validated
 @RequestMapping("/items")
 public class ItemController {
 
@@ -75,6 +77,21 @@ public class ItemController {
     })
     public ResponseEntity<?> listById(@PathVariable int id) {
         return itemService.listById(id);
+    }
+
+    @GetMapping("/itemsByIds")
+    @Operation(summary = "Listar itens por uma lista de IDs.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
+    })
+    public ResponseEntity<?> getItemsByIds(@RequestBody List<Integer> ids, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return itemService.getItemsByIds(ids, pageable);
     }
 
     @PostMapping
