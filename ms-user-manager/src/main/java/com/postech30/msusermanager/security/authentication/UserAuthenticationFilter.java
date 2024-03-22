@@ -31,20 +31,21 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        if(checkIfEndpointIsNotPublic(request)) {
-            String token = recoveryToken(request);
-            if (token != null) {
-                String subject = jwtTokenService.getSubjectFromToken(token);
-                User user = userRepository.findByEmail(subject).get();
-                UserDetailsImpl userDetails = new UserDetailsImpl(user);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null,
-                        userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else {
-                throw new RuntimeException("O token está ausente.");
-            }
-        }
-        filterChain.doFilter(request, response);
+                if(checkIfEndpointIsNotPublic(request)) {
+                    String token = recoveryToken(request);
+                    if (token != null) {
+                        String subject = jwtTokenService.getSubjectFromToken(token);
+                        User user = userRepository.findByEmail(subject).get();
+                        UserDetailsImpl userDetails = new UserDetailsImpl(user);
+                        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                                userDetails.getUsername(), null,
+                                userDetails.getAuthorities());
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    } else {
+                        throw new RuntimeException("O token está ausente.");
+                    }
+                }
+                filterChain.doFilter(request, response);
     }
 
     private String recoveryToken(HttpServletRequest request) {
@@ -57,6 +58,9 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        return !Arrays.asList(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
+        return !Arrays.asList(
+                SecurityConfiguration
+                .ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED)
+                .contains(requestURI);
     }
 }
