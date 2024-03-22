@@ -3,10 +3,13 @@ package com.postech30.msitems.service;
 import com.postech30.msitems.model.Item;
 import com.postech30.msitems.repository.ItemRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ItemService {
@@ -42,6 +45,18 @@ public class ItemService {
             return ResponseEntity.ok().body(item);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item não encontrado.");
+        }
+    }
+
+    public ResponseEntity<Page<Item>> getItemsByIds(List<Integer> ids, Pageable pageable) {
+        List<Item> items = itemRepository.findAllById(ids);
+        if (!items.isEmpty()) {
+            int start = (int) pageable.getOffset();
+            int end = Math.min((start + pageable.getPageSize()), items.size());
+            Page<Item> itemPage = new PageImpl<>(items.subList(start, end), pageable, items.size());
+            return ResponseEntity.ok().body(itemPage);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Page.empty());
         }
     }
 
