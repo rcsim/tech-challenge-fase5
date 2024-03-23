@@ -5,6 +5,7 @@ import com.postech30.msusermanager.dto.LoginUserDTO;
 import com.postech30.msusermanager.dto.RecoverUserDTO;
 import com.postech30.msusermanager.dto.RecoveryJwtTokenDTO;
 import com.postech30.msusermanager.entity.User;
+import com.postech30.msusermanager.entity.Role;
 import com.postech30.msusermanager.repository.UserRepository;
 import com.postech30.msusermanager.security.authentication.JwtTokenService;
 import com.postech30.msusermanager.security.config.SecurityConfiguration;
@@ -51,27 +52,22 @@ public class UserServiceImpl implements UserService {
         return new RecoveryJwtTokenDTO(jwtTokenService.generateToken(userDetails));
     }
 
+    // Cria um novo usuário
+    public CreateUserDTO createUser(CreateUserDTO createUserDTO) {
+
+        User newUser = User.builder()
+                .email(createUserDTO.email())
+                .password(securityConfiguration.passwordEncoder().encode(createUserDTO.password()))
+                .roles(List.of(Role.builder().roleName(createUserDTO.role()).build()))
+                .build();
+        userRepository.save(newUser);
+        return createUserDTO;
+    }
+
     @Override
     public Page<RecoverUserDTO> searchUser(String searchUser, Pageable pageable) {
         return null;
     }
-
-    @Override
-    public CreateUserDTO createUser(CreateUserDTO createUserDTO) {
-
-        return null;
-    }
-
-   // Cria um novo usuário
-//    public void createUser(CreateUserDTO createUserDTO) {
-//
-//        User newUser = User.builder()
-//                .email(createUserDTO.email())
-//                .password(securityConfiguration.passwordEncoder().encode(createUserDTO.password()))
-//                .roles(List.of(Role.builder().name(createUserDTO.role()).build()))
-//                .build();
-//        userRepository.save(newUser);
-//    }
 
     @Override
     public RecoverUserDTO findById(Long id) {
@@ -92,4 +88,5 @@ public class UserServiceImpl implements UserService {
     public List<RecoverUserDTO> findUserByRoleId(Long id) {
         return null;
     }
+
 }
