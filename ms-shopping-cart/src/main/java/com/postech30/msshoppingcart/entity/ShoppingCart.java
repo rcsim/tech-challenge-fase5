@@ -16,9 +16,14 @@ import java.util.List;
 public class ShoppingCart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany(mappedBy = "id")
+
+    @ElementCollection
+    @CollectionTable(
+            name="tb_products",
+            joinColumns=@JoinColumn(name="id")
+    )
     private List<Product> products;
     private Long userId;
     private BigDecimal totalValue;

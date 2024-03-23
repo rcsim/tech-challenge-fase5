@@ -9,13 +9,11 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Embeddable
 @Table(name = "tb_products")
 @EqualsAndHashCode
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
     private long productId;
     private String name;
     private BigDecimal price;
