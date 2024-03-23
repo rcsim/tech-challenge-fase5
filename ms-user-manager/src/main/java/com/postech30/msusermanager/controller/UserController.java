@@ -5,7 +5,7 @@ import com.postech30.msusermanager.dto.LoginUserDTO;
 import com.postech30.msusermanager.dto.RecoveryJwtTokenDTO;
 import com.postech30.msusermanager.entity.User;
 import com.postech30.msusermanager.repository.UserRepository;
-import com.postech30.msusermanager.service.UserService;
+import com.postech30.msusermanager.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private UserRepository userRepository;
