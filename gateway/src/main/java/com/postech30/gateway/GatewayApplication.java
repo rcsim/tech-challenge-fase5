@@ -34,5 +34,31 @@ public class GatewayApplication {
 				.DELETE("/card/*", http("http://localhost:8084/card/*"))
 				.build();
 	}
+	@Bean
+	public RouterFunction<ServerResponse> paymentRoute() {
+		return route("payment_route")
+				.POST("/checkout", http("http://localhost:8084/payment/chekout"))
+				.build();
+	}
+
+	@Bean
+	public RouterFunction<ServerResponse> cartRoute() {
+		return route("cart_route")
+				.GET("/shopping-cart/*", http("http://localhost:8083/shopping-cart/*"))
+				.POST("/shopping-cart", http("http://localhost:8083/shopping-cart"))
+				.PUT("/shopping-cart/*", http("http://localhost:8083/shopping-cart/*"))
+				.DELETE("/shopping-cart/*", http("http://localhost:8083/shopping-cart/*"))
+				.build();
+	}
+
+	@Bean
+	public RouterFunction<ServerResponse> itemRoute() {
+		return route("item_route")
+				.GET("/items/*", http("http://localhost:8082/items/*"))
+				.POST("/items", http("http://localhost:8082/items"))
+				.PUT("/items/*", http("http://localhost:8082/items/*"))
+				.DELETE("/items/*", http("http://localhost:8082/items/*"))
+				.build();
+	}
 
 }
