@@ -4,6 +4,7 @@ import com.postech30.msusermanager.dto.CreateUserDTO;
 import com.postech30.msusermanager.dto.LoginUserDTO;
 import com.postech30.msusermanager.dto.RecoveryJwtTokenDTO;
 import com.postech30.msusermanager.entity.User;
+import com.postech30.msusermanager.entity.Role;
 import com.postech30.msusermanager.repository.UserRepository;
 import com.postech30.msusermanager.security.authentication.JwtTokenService;
 import com.postech30.msusermanager.security.config.SecurityConfiguration;
