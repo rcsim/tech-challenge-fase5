@@ -10,10 +10,12 @@ services:
     networks:
       - my-networks
 
-  app:
+  ms-payment:
     depends_on:
       - db
-    build: .
+    build:
+      context: ./payment
+      dockerfile: Dockerfile
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
@@ -23,6 +25,22 @@ services:
       - "8084:8084"
     networks:
       - my-networks
+
+  gateway:
+    depends_on:
+      - db
+    build:
+      context: ./payment
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080:8080"
+    networks:
+      - my-networks      
 
 
 
