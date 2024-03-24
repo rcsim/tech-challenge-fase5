@@ -6,7 +6,6 @@ import com.postech30.msshoppingcart.entity.Product;
 public class ProductMapper {
     public static ProductDTO toDTO(Product product) {
         return new ProductDTO(
-                product.getId(),
                 product.getProductId(),
                 product.getName(),
                 product.getPrice(),

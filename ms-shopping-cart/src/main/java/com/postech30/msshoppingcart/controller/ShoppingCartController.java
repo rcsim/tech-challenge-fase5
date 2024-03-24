@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/shopping-cart")
 @Validated
@@ -109,4 +111,53 @@ public class ShoppingCartController {
         shoppingCartService.deleteShoppingCart(id);
         return ResponseEntity.status(HttpStatus.OK).body("Shopping cart deleted!!");
     }
+
+    @PutMapping(value = "{id}/products")
+    @Operation(summary = "Adicionar produtos ao carrinho de compras.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
+            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
+    })
+    public ResponseEntity<ShoppingCartDTO> addProductsToShoppingCart(@PathVariable Long id, @RequestBody List<ProductDTO> products) {
+        var shoppingCart = shoppingCartService.addProductsToShoppingCart(id, products);
+        return ResponseEntity.status(HttpStatus.OK).body(shoppingCart);
+    }
+
+    @PutMapping(value = "{id}/remove")
+    @Operation(summary = "Remover um produto do carrinho de compras.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
+            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
+    })
+    public ResponseEntity<ShoppingCartDTO> removeProductsFromShoppingCart(@PathVariable Long id, @RequestBody Long productId) {
+        var shoppingCart = shoppingCartService.removeProductFromShoppingCart(id, productId);
+        return ResponseEntity.status(HttpStatus.OK).body(shoppingCart);
+    }
+
+    @PutMapping(value = "{id}/clear")
+    @Operation(summary = "Limpar carrinho de compras.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
+            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
+    })
+    public ResponseEntity<ShoppingCartDTO> clearShoppingCart(@PathVariable Long id) {
+        var shoppingCart = shoppingCartService.clearShoppingCart(id);
+        return ResponseEntity.status(HttpStatus.OK).body(shoppingCart);
+    }
+
 }

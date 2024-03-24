@@ -16,8 +16,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ProductDTO {
 
-    private Long id;
-
     @JsonProperty
     @NotBlank(message = "O id do produto é um campo de preenchimento obrigatório")
     private Long productId;
