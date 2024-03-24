@@ -89,9 +89,8 @@ public class ItemController {
             @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
     })
-    public ResponseEntity<?> getItemsByIds(@RequestBody List<Integer> ids, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return itemService.getItemsByIds(ids, pageable);
+    public ResponseEntity<?> getItemsByIds(@RequestBody List<Integer> ids) {
+        return itemService.getItemsByIds(ids);
     }
 
     @PostMapping
