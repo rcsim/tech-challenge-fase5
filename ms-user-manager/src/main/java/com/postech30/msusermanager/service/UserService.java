@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface UserService {
     Page<RecoverUserDTO> searchUser(String searchUser, Pageable pageable);
+
     CreateUserDTO createUser(CreateUserDTO createUserDTO);
+
     RecoverUserDTO findById(Long id);
     void updateUser(Long id, RecoverUserDTO recoverUserDTO);
     void deleteUser(Long id);
