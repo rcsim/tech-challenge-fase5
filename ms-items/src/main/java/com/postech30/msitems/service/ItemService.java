@@ -48,15 +48,12 @@ public class ItemService {
         }
     }
 
-    public ResponseEntity<Page<Item>> getItemsByIds(List<Integer> ids, Pageable pageable) {
+    public ResponseEntity<List<Item>> getItemsByIds(List<Integer> ids) {
         List<Item> items = itemRepository.findAllById(ids);
         if (!items.isEmpty()) {
-            int start = (int) pageable.getOffset();
-            int end = Math.min((start + pageable.getPageSize()), items.size());
-            Page<Item> itemPage = new PageImpl<>(items.subList(start, end), pageable, items.size());
-            return ResponseEntity.ok().body(itemPage);
+            return ResponseEntity.ok().body(items);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Page.empty());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(items);
         }
     }
 

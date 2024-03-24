@@ -98,23 +98,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/items/itemsByIds?page=0&size=5",
+							"raw": "{{url}}/items/itemsByIds",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"items",
 								"itemsByIds"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "5"
-								}
 							]
 						}
 					},
