@@ -19,10 +19,7 @@ public class UserMapper {
 
     public static User toEntity(UserDTO userDTO) {
         User user = new User();
-<<<<<<< HEAD
-=======
         String encryptedPassword = new BCryptPasswordEncoder().encode(userDTO.getPassword());
->>>>>>> 9d27c9b989d934d18e88bdefd9187180925e5478
         user.setId(userDTO.getId());
         user.setUsername(userDTO.getUsername());
         user.setPassword(encryptedPassword);

@@ -69,11 +69,6 @@
 			<version>2.2.0</version>
 		</dependency>
 		<!-- FIM SWAGGER -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
     </dependencies>
 
 	<build>

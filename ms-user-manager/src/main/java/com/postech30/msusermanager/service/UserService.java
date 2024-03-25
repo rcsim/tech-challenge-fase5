@@ -1,11 +1,7 @@
 package com.postech30.msusermanager.service;
 
 import com.postech30.msusermanager.dto.UserDTO;
-<<<<<<< HEAD
-=======
-import com.postech30.msusermanager.entity.User;
-import com.postech30.msusermanager.exception.AuthenticateException;
->>>>>>> 9d27c9b989d934d18e88bdefd9187180925e5478
+
 import com.postech30.msusermanager.exception.ResourceNotFoundException;
 
 import java.util.List;
