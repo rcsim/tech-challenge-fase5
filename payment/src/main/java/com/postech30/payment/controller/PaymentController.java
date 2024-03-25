@@ -39,10 +39,10 @@ public class PaymentController {
     }
 
     @PostMapping("/checkout")
-    @Operation(summary = "Finalizar compra.")
+    @Operation(summary = "Finalizar compra.",
+            description = "Finaliza a compra de um carrinho de compras.")
     @ApiResponses(value = {
-                @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PaymentDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PaymentDTO.class))}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),

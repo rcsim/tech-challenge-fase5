@@ -33,14 +33,13 @@ public class ShoppingCartController {
     }
 
     @PostMapping
-    @Operation(summary = "Salvar carrinho de compras.")
+    @Operation(summary = "Salvar carrinho de compras.",
+            description = "Adiciona um carrinho de compras na base de dados do sistema.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "201", description = "Carrinho de compras salvo.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
     })
     public ResponseEntity<ShoppingCartDTO> saveShoppingCart(@RequestBody @Valid ShoppingCartDTO shoppingCartDTO) {
@@ -49,10 +48,10 @@ public class ShoppingCartController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar todos os carrinhos de compras.")
+    @Operation(summary = "Listar todos os carrinhos de compras.",
+        description = "Lista todos os carrinhos de compras na base de dados do sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -65,10 +64,10 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Obter carrinho de compras por ID.")
+    @Operation(summary = "Obter carrinho de compras por ID.",
+            description = "Obtém um carrinho de compras na base de dados do sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -81,10 +80,10 @@ public class ShoppingCartController {
     }
 
     @PutMapping(value = "{id}")
-    @Operation(summary = "Atualizar carrinho de compras.")
+    @Operation(summary = "Atualizar carrinho de compras.",
+            description = "Atualiza um carrinho de compras na base de dados do sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -97,10 +96,10 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping(value = "{id}")
-    @Operation(summary = "Deletar carrinho de compras.")
+    @Operation(summary = "Deletar carrinho de compras.",
+            description = "Deleta um carrinho de compras na base de dados do sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -113,10 +112,10 @@ public class ShoppingCartController {
     }
 
     @PutMapping(value = "{id}/products")
-    @Operation(summary = "Adicionar produtos ao carrinho de compras.")
+    @Operation(summary = "Adicionar produtos ao carrinho de compras.",
+            description = "Adiciona produtos ao carrinho de compras na base de dados do sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -129,10 +128,10 @@ public class ShoppingCartController {
     }
 
     @PutMapping(value = "{id}/remove")
-    @Operation(summary = "Remover um produto do carrinho de compras.")
+    @Operation(summary = "Remover um produto do carrinho de compras.",
+        description = "Remove um produto do carrinho de compras na base de dados do sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -145,10 +144,10 @@ public class ShoppingCartController {
     }
 
     @PutMapping(value = "{id}/clear")
-    @Operation(summary = "Limpar carrinho de compras.")
+    @Operation(summary = "Limpar carrinho de compras.",
+        description = "Limpa o carrinho de compras na base de dados do sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ShoppingCartDTO.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),

@@ -5,7 +5,7 @@ package com.postech30.msusermanager.service.impl;
 import com.postech30.msusermanager.dto.UserDTO;
 import com.postech30.msusermanager.entity.User;
 import com.postech30.msusermanager.exception.AuthenticateException;
-import com.postech30.msusermanager.exception.UsuarioNaoEncontradoException;
+import com.postech30.msusermanager.exception.ResourceNotFoundException;
 import com.postech30.msusermanager.mapper.UserMapper;
 import com.postech30.msusermanager.repository.UserRepository;
 import com.postech30.msusermanager.service.UserService;
@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO findById(Long id) throws UsuarioNaoEncontradoException {
-        User user =  userRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));;
+    public UserDTO findById(Long id) throws ResourceNotFoundException {
+        User user =  userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));;
         return  UserMapper.fromEntity(user);
     }
 
@@ -39,17 +39,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(Long id, UserDTO userDTO) throws UsuarioNaoEncontradoException {
-        User user =  userRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));;
+    public UserDTO updateUser(Long id, UserDTO userDTO) throws ResourceNotFoundException {
+        User user =  userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));;
         mapUpdate(user,userDTO);
         userRepository.save(user);
         return UserMapper.fromEntity(user);
     }
 
     @Override
-    public void deleteById(Long id) throws UsuarioNaoEncontradoException {
+    public void deleteById(Long id) throws ResourceNotFoundException {
         if(!userRepository.existsById(id)){
-            throw new UsuarioNaoEncontradoException("Usuario não encontrado");
+            throw new ResourceNotFoundException("Usuário não encontrado");
         }
         userRepository.deleteById(id);
     }
