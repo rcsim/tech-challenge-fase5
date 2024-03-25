@@ -3,31 +3,15 @@ services:
 
 #Gateway Service
 
-  # gateway:
-  #   depends_on:
-  #     - gateway-db
-  #   build:
-  #     context: ./gateway
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5431/postgres
-  #     - SPRING_DATASOURCE_USERNAME=compose-postgres
-  #     - SPRING_DATASOURCE_PASSWORD=compose-postgres
-  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - my-networks
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - my-networks
 
-  #   gateway-db:
-  #   image: postgres
-  #   environment:
-  #     - POSTGRES_USER=compose-postgres
-  #     - POSTGRES_PASSWORD=compose-postgres
-  #   ports:
-  #     - "5431:5431"
-  #   networks:
-  #     - my-networks  
 
 # Payment Service
   payment-db:
