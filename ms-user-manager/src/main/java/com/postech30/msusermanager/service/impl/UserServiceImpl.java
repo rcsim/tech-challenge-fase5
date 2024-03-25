@@ -4,6 +4,10 @@ package com.postech30.msusermanager.service.impl;
 
 import com.postech30.msusermanager.dto.UserDTO;
 import com.postech30.msusermanager.entity.User;
+<<<<<<< HEAD
+=======
+import com.postech30.msusermanager.exception.AuthenticateException;
+>>>>>>> 9d27c9b989d934d18e88bdefd9187180925e5478
 import com.postech30.msusermanager.exception.ResourceNotFoundException;
 import com.postech30.msusermanager.mapper.UserMapper;
 import com.postech30.msusermanager.repository.UserRepository;
@@ -52,6 +56,8 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.deleteById(id);
     }
+
+
 
     private void mapUpdate(User user, UserDTO userDTO){
         user.setEmail(userDTO.getEmail());

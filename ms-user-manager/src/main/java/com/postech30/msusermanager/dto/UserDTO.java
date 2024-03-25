@@ -1,5 +1,6 @@
 package com.postech30.msusermanager.dto;
 
+import com.postech30.msusermanager.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -26,4 +27,7 @@ public class UserDTO {
     @Email(message = "Email tem que ser valido")
     @NotBlank(message = "Email é obrigatorio")
     private String email;
+
+    @NotBlank
+    private UserRole userRole;
 }
