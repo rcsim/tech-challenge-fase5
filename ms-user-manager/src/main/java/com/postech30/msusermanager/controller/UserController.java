@@ -1,14 +1,10 @@
 package com.postech30.msusermanager.controller;
 
-import com.postech30.msusermanager.dto.CreateUserDTO;
-import com.postech30.msusermanager.dto.LoginUserDTO;
-import com.postech30.msusermanager.dto.RecoveryJwtTokenDTO;
-import com.postech30.msusermanager.entity.User;
-import com.postech30.msusermanager.repository.UserRepository;
-import com.postech30.msusermanager.service.impl.UserServiceImpl;
+
+import com.postech30.msusermanager.dto.UserDTO;
+import com.postech30.msusermanager.exception.UsuarioNaoEncontradoException;
+import com.postech30.msusermanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,43 +14,33 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
+    @GetMapping
+    public List<UserDTO> getAllUsers() {
+        return userService.findAll();
+    }
 
-    @PostMapping("/login")
-    public ResponseEntity<RecoveryJwtTokenDTO> authenticateUser(
-            @RequestBody LoginUserDTO loginUserDTO) {
-        RecoveryJwtTokenDTO tokenDTO = userService.authenticateUser(loginUserDTO);
-        return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
+    @GetMapping("/{id}")
+    public UserDTO getUserById(@PathVariable Long id) throws UsuarioNaoEncontradoException {
+        return userService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUser(
-            @RequestBody CreateUserDTO createUserDTO) {
-        userService.createUser(createUserDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public UserDTO createUser(@RequestBody UserDTO user) {
+        return userService.save(user);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> getAuthenticationTest() {
-        return new ResponseEntity<>("Autenticado com sucesso!", HttpStatus.OK);
+    @PutMapping("/{id}")
+    public UserDTO updateUser(@PathVariable Long id, @RequestBody UserDTO user) throws UsuarioNaoEncontradoException {
+
+        return userService.updateUser(id,user);
     }
 
-    @GetMapping("/test/customer")
-    public ResponseEntity<String> getCustomerAuthenticationTest() {
-        return new ResponseEntity<>("Cliente autenticado com sucesso!", HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) throws UsuarioNaoEncontradoException {
+        userService.deleteById(id);
     }
 
-    @GetMapping("/test/administrador")
-    public ResponseEntity<String> getAdminAuthenticationTest() {
-        return new ResponseEntity<>("Administrador autenticado com sucesso!", HttpStatus.OK);
-    }
 
-    @GetMapping
-    public ResponseEntity getAllUsers(){
-        List<User> users = this.userRepository.findAll();
-        return ResponseEntity.ok(users);
-    }
 }
