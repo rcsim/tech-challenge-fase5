@@ -60,5 +60,14 @@ public class GatewayApplication {
 				.DELETE("/items/*", http("http://localhost:8082/items/*"))
 				.build();
 	}
-
+	@Bean
+	public RouterFunction<ServerResponse> userRoute() {
+		return route("item_route")
+				.GET("/users/*", http("http://localhost:8081/users/*"))
+				.POST("/users", http("http://localhost:8081/users"))
+				.PUT("/users/*", http("http://localhost:8081/users/*"))
+				.DELETE("/users/*", http("http://localhost:8081/users/*"))
+				.POST("/login", http("http://localhost:8081/login"))
+				.build();
+	}
 }
