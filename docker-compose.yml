@@ -52,8 +52,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    ports:
-      - "8084:8084"
     networks:
       - my-networks
 
@@ -82,8 +80,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    ports:
-      - "8082:8082"
     networks:
       - my-networks 
 
@@ -112,8 +108,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    ports:
-      - "8083:8083"
     networks:
       - my-networks
    
