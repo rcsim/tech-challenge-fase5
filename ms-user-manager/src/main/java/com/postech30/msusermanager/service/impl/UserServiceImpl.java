@@ -4,6 +4,7 @@ package com.postech30.msusermanager.service.impl;
 
 import com.postech30.msusermanager.dto.UserDTO;
 import com.postech30.msusermanager.entity.User;
+import com.postech30.msusermanager.exception.AuthenticateException;
 import com.postech30.msusermanager.exception.UsuarioNaoEncontradoException;
 import com.postech30.msusermanager.mapper.UserMapper;
 import com.postech30.msusermanager.repository.UserRepository;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findById(Long id) throws UsuarioNaoEncontradoException {
-        User user =  userRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Adicional não encontrado"));;
+        User user =  userRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));;
         return  UserMapper.fromEntity(user);
     }
 
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(Long id, UserDTO userDTO) throws UsuarioNaoEncontradoException {
-        User user =  userRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Adicional não encontrado"));;
+        User user =  userRepository.findById(id).orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));;
         mapUpdate(user,userDTO);
         userRepository.save(user);
         return UserMapper.fromEntity(user);
@@ -47,11 +48,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(Long id) throws UsuarioNaoEncontradoException {
-        if(userRepository.existsById(id)){
-            throw new UsuarioNaoEncontradoException("Adicional não encontrado");
+        if(!userRepository.existsById(id)){
+            throw new UsuarioNaoEncontradoException("Usuario não encontrado");
         }
         userRepository.deleteById(id);
     }
+
+
 
     private void mapUpdate(User user, UserDTO userDTO){
         user.setEmail(userDTO.getEmail());
