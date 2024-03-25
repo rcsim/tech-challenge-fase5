@@ -30,6 +30,16 @@ services:
   #     - my-networks  
 
 # Payment Service
+  payment-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+      - PGPORT=5435
+    ports:
+      - "5435:5435"
+    networks:
+      - my-networks
 
   ms-payment:
     depends_on:
@@ -38,7 +48,7 @@ services:
       context: ./payment
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5435/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://payment-db:5435/postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -47,17 +57,19 @@ services:
     networks:
       - my-networks
 
-  payment-db:
+ 
+
+ # Items Service
+  item-db:
     image: postgres
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
+      - PGPORT=5433
     ports:
-      - "5435:5435"
+      - "5433:5433"
     networks:
       - my-networks
-
- # Items Service
 
   ms-item:
     depends_on:
@@ -66,7 +78,7 @@ services:
       context: ./ms-items
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5433/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://item-db:5433/postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -75,17 +87,19 @@ services:
     networks:
       - my-networks 
 
-  item-db:
+ 
+
+# Shopping Cart Service
+  shopping-cart-db:
     image: postgres
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
+      - PGPORT=5434
     ports:
-      - "5433:5433"
+      - "5434:5434"
     networks:
-      - my-networks
-
-# Shopping Cart Service
+      - my-networks 
 
   ms-shopping-cart:
     depends_on:
@@ -94,7 +108,7 @@ services:
       context: ./ms-shopping-cart
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5434/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://shopping-cart-db:5434/postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -103,17 +117,19 @@ services:
     networks:
       - my-networks
 
-  shopping-cart-db:
+   
+
+# Users Service
+  user-db:
     image: postgres
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
+      - PGPORT=5432
     ports:
-      - "5434:5434"
+      - "5432:5432"
     networks:
       - my-networks   
-
-# Users Service
 
   ms-user-manager:
     depends_on:
@@ -122,7 +138,7 @@ services:
       context: ./ms-user-manager
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -131,15 +147,7 @@ services:
     networks:
       - my-networks
 
-  user-db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - my-networks   
+
 
 networks:
   my-networks:
