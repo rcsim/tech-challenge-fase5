@@ -24,7 +24,6 @@ public class ProductDTO {
     private String name;
 
     @JsonProperty
-    @NotNull(message = "O valor do produto é um campo de preenchimento obrigatório")
     private BigDecimal price;
 
     @JsonProperty

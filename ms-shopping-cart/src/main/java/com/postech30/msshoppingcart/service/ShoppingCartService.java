@@ -22,5 +22,5 @@ public interface ShoppingCartService {
 
     ShoppingCartDTO clearShoppingCart(Long id);
 
-    ShoppingCartDTO removeProductFromShoppingCart(Long id, Long productId);
+    ShoppingCartDTO removeProductFromShoppingCart(Long id, List<Long> productIds);
 }

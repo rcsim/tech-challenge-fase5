@@ -17,8 +17,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.addAll;
+
 @Service
 @AllArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -73,25 +78,45 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartDTO addProductsToShoppingCart(Long id, List<ProductDTO> products) {
-        Optional<ShoppingCart> shoppingCartOptional = shoppingCartRepository.findById(id);
-        if (shoppingCartOptional.isPresent()) {
-            ShoppingCart shoppingCart = shoppingCartOptional.get();
-            List<Product> currentProducts = shoppingCart.getProducts();
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException("Shopping cart with id: " + id + " not found"));
 
-            for (ProductDTO product : products) {
-                currentProducts.add(ProductMapper.toEntity(product));
+        List<Product> currentProducts = shoppingCart.getProducts() == null ? new ArrayList<>() : shoppingCart.getProducts();
+
+
+        for (ProductDTO productDTO : products) {
+            Optional<Product> productOptional = currentProducts.stream()
+                    .filter(product -> product.getProductId() == productDTO.getProductId())
+                    .findFirst();
+            if (productOptional.isPresent()) {
+                Product product = productOptional.get();
+                product.setQuantity(product.getQuantity() + productDTO.getQuantity());
+                currentProducts.removeIf(p -> p.getProductId() == product.getProductId());
+                currentProducts.add(product);
+
             }
-
-            shoppingCart.setProducts(currentProducts);
-            shoppingCart.setTotalValue(ShoppingCartUtils.CalculateTotalValue(ShoppingCartMapper.toDTO(shoppingCart)));
-
-            shoppingCartRepository.save(shoppingCart);
-
-            return ShoppingCartMapper.toDTO(shoppingCart);
+            else {
+                currentProducts.add(ProductMapper.toEntity(productDTO));
+            }
         }
-        else {
-            throw new BadRequestException("Shopping cart with id: " + id + " not found");
-        }
+
+        List<ProductDTO> currentProductsDTO = currentProducts.stream()
+                .map(ProductMapper::toDTO)
+                .collect(Collectors.toList());
+
+        //currentProductsDTO.addAll(products);
+
+        currentProductsDTO = productService.getProductsDetails(currentProductsDTO);
+
+        shoppingCart.setProducts(currentProductsDTO.stream()
+                .map(ProductMapper::toEntity)
+                .collect(Collectors.toList()));
+
+        shoppingCart.setTotalValue(ShoppingCartUtils.CalculateTotalValue(ShoppingCartMapper.toDTO(shoppingCart)));
+
+        shoppingCartRepository.save(shoppingCart);
+
+        return ShoppingCartMapper.toDTO(shoppingCart);
 
     }
 
@@ -100,7 +125,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Optional<ShoppingCart> shoppingCartOptional = shoppingCartRepository.findById(id);
         if (shoppingCartOptional.isPresent()) {
             ShoppingCart shoppingCart = shoppingCartOptional.get();
-            shoppingCart.setProducts(null);
+            List<Product> products = new ArrayList<>();
+            shoppingCart.setProducts(products);
             shoppingCart.setTotalValue(BigDecimal.ZERO);
 
             shoppingCartRepository.save(shoppingCart);
@@ -113,12 +139,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartDTO removeProductFromShoppingCart(Long id, Long productId) {
+    public ShoppingCartDTO removeProductFromShoppingCart(Long id, List<Long> productIds) {
         Optional<ShoppingCart> shoppingCartOptional = shoppingCartRepository.findById(id);
         if (shoppingCartOptional.isPresent()) {
             ShoppingCart shoppingCart = shoppingCartOptional.get();
             List<Product> currentProducts = shoppingCart.getProducts();
-            currentProducts.removeIf(product -> product.getProductId() == productId);
+            for (Long productId : productIds) {
+                currentProducts.removeIf(product -> product.getProductId() == productId);
+            }
 
             shoppingCart.setProducts(currentProducts);
             shoppingCart.setTotalValue(ShoppingCartUtils.CalculateTotalValue(ShoppingCartMapper.toDTO(shoppingCart)));
