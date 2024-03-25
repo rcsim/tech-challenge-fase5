@@ -8,6 +8,7 @@ public class UserMapper {
 
     public static UserDTO fromEntity(User user) {
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(user.getPassword());
         userDTO.setEmail(user.getEmail());
@@ -16,6 +17,7 @@ public class UserMapper {
 
     public static User toEntity(UserDTO userDTO) {
         User user = new User();
+        user.setId(userDTO.getId());
         user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
         user.setEmail(userDTO.getEmail());

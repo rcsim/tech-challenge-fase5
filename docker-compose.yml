@@ -1,23 +1,44 @@
 version: "3"
 services:
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - my-networks
+
+#Gateway Service
+
+  # gateway:
+  #   depends_on:
+  #     - gateway-db
+  #   build:
+  #     context: ./gateway
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5431/postgres
+  #     - SPRING_DATASOURCE_USERNAME=compose-postgres
+  #     - SPRING_DATASOURCE_PASSWORD=compose-postgres
+  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - my-networks
+
+  #   gateway-db:
+  #   image: postgres
+  #   environment:
+  #     - POSTGRES_USER=compose-postgres
+  #     - POSTGRES_PASSWORD=compose-postgres
+  #   ports:
+  #     - "5431:5431"
+  #   networks:
+  #     - my-networks  
+
+# Payment Service
 
   ms-payment:
     depends_on:
-      - db
+      - payment-db
     build:
       context: ./payment
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5435/postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -26,30 +47,26 @@ services:
     networks:
       - my-networks
 
-  gateway:
-    depends_on:
-      - db
-    build:
-      context: ./gateway
-      dockerfile: Dockerfile
+  payment-db:
+    image: postgres
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
-      - SPRING_DATASOURCE_USERNAME=compose-postgres
-      - SPRING_DATASOURCE_PASSWORD=compose-postgres
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
     ports:
-      - "8080:8080"
+      - "5435:5435"
     networks:
-      - my-networks     
+      - my-networks
 
-  ms-items:
+ # Items Service
+
+  ms-item:
     depends_on:
-      - db
+      - item-db
     build:
       context: ./ms-items
       dockerfile: Dockerfile
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5433/postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -58,11 +75,51 @@ services:
     networks:
       - my-networks 
 
+  item-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+    ports:
+      - "5433:5433"
+    networks:
+      - my-networks
+
+# Shopping Cart Service
+
   ms-shopping-cart:
     depends_on:
-      - db
+      - shopping-cart-db
     build:
       context: ./ms-shopping-cart
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5434/postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8083:8083"
+    networks:
+      - my-networks
+
+  shopping-cart-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+    ports:
+      - "5434:5434"
+    networks:
+      - my-networks   
+
+# Users Service
+
+  ms-user-manager:
+    depends_on:
+      - user-db
+    build:
+      context: ./ms-user-manager
       dockerfile: Dockerfile
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
@@ -70,11 +127,19 @@ services:
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     ports:
-      - "8083:8083"
+      - "8081:8081"
+    networks:
+      - my-networks
+
+  user-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+    ports:
+      - "5432:5432"
     networks:
       - my-networks   
-
-
 
 networks:
   my-networks:
