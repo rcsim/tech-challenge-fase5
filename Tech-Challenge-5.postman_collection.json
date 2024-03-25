@@ -344,7 +344,131 @@
 		},
 		{
 			"name": "Users",
-			"item": []
+			"item": [
+				{
+					"name": "Adiciona Usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"John Doe\",\r\n    \"password\": \"dgfiogpujiruigjgir0[3254-0ijc220j0282c\",\r\n    \"email\": \"johndoe@anydomain.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_users}}/users",
+							"host": [
+								"{{url_users}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Usuário",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"John Doe\",\r\n    \"password\": \"dgfiogpujiruigjgir0[3254-0ijc220j0282c\",\r\n    \"email\": \"johndoe@anydomain.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_users}}/users/1",
+							"host": [
+								"{{url_users}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca todos os Usuário",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_users}}/users",
+							"host": [
+								"{{url_users}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Usuário por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_users}}/users/1",
+							"host": [
+								"{{url_users}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apaga Usuário por Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_users}}/users/1",
+							"host": [
+								"{{url_users}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login do Usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url_users}}/login",
+							"host": [
+								"{{url_users}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Payment",
@@ -654,11 +778,11 @@
 	"variable": [
 		{
 			"key": "url_items",
-			"value": "localhost:8082"
+			"value": "localhost:8080"
 		},
 		{
 			"key": "url_shopping_cart",
-			"value": "localhost:8083",
+			"value": "localhost:8080",
 			"type": "string"
 		},
 		{
@@ -668,7 +792,7 @@
 		},
 		{
 			"key": "url_payment",
-			"value": "localhost:8084",
+			"value": "localhost:8080",
 			"type": "string"
 		}
 	]
