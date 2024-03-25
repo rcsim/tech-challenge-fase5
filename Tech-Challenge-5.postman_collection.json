@@ -1,0 +1,675 @@
+{
+	"info": {
+		"_postman_id": "5aa490f5-db50-45bb-96bd-b4934bc375cc",
+		"name": "Tech-Challenge-5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17475893"
+	},
+	"item": [
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "Buscar todos os itens",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_items}}/items?page=0&size=5",
+							"host": [
+								"{{url_items}}"
+							],
+							"path": [
+								"items"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar itens por ID do usuário",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_items}}/items/user/1?page=0&size=5",
+							"host": [
+								"{{url_items}}"
+							],
+							"path": [
+								"items",
+								"user",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar item por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_items}}/items/1",
+							"host": [
+								"{{url_items}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar items por IDs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1,2]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_items}}/items/itemsByIds",
+							"host": [
+								"{{url_items}}"
+							],
+							"path": [
+								"items",
+								"itemsByIds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar um novo item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"name\": \"Camiseta Braca 2\",\r\n    \"description\": \"Camiseta de algodão branca 2.\",\r\n    \"stocktaking\": \"20\",\r\n    \"amount\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_items}}/items",
+							"host": [
+								"{{url_items}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar um item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"name\": \"Camiseta Braca\",\r\n    \"description\": null,\r\n    \"stocktaking\": 10,\r\n    \"amount\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_items}}/items/1",
+							"host": [
+								"{{url_items}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir um item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_items}}/items/1",
+							"host": [
+								"{{url_items}}"
+							],
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shopping-Cart",
+			"item": [
+				{
+					"name": "Buscar Todos os Carrinhos de Compras",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_shopping_cart}}/shopping-cart",
+							"host": [
+								"{{url_shopping_cart}}"
+							],
+							"path": [
+								"shopping-cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Carrinho de Compras",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 10\r\n        }\r\n    ],\r\n    \"userId\": 2,\r\n    \"totalValue\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_shopping_cart}}/shopping-cart",
+							"host": [
+								"{{url_shopping_cart}}"
+							],
+							"path": [
+								"shopping-cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Carrinho de Compras por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_shopping_cart}}/shopping-cart/1",
+							"host": [
+								"{{url_shopping_cart}}"
+							],
+							"path": [
+								"shopping-cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclui Carrinho de Compras",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_shopping_cart}}/shopping-cart/1",
+							"host": [
+								"{{url_shopping_cart}}"
+							],
+							"path": [
+								"shopping-cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adiciona Produtos em um Carrinho de Compras",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 10\r\n        }\r\n    ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_shopping_cart}}/shopping-cart/1/products",
+							"host": [
+								"{{url_shopping_cart}}"
+							],
+							"path": [
+								"shopping-cart",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Limpa os produtos de um carrinho",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url_shopping_cart}}/shopping-cart/1/clear",
+							"host": [
+								"{{url_shopping_cart}}"
+							],
+							"path": [
+								"shopping-cart",
+								"1",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove produtos de um carrinho",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_shopping_cart}}/shopping-cart/1/remove",
+							"host": [
+								"{{url_shopping_cart}}"
+							],
+							"path": [
+								"shopping-cart",
+								"1",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": []
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Faz Checkout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "User-Agent",
+								"value": "insomnia/8.6.1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cardId\":2,\n\t\"cartID\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_payment}}/payment/checkout",
+							"host": [
+								"{{url_payment}}"
+							],
+							"path": [
+								"payment",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Cartão",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "User-Agent",
+								"value": "insomnia/8.6.1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"numero_Card\": \"1234 5678 9012 3456\",\n \"titular_Card\": \"John Doe\",\n \"data_expiracao\": \"12/2025\",\n \"codigo_seguranca\": \"123\",\n \"userId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_payment}}/card",
+							"host": [
+								"{{url_payment}}"
+							],
+							"path": [
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza Cartão",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "User-Agent",
+								"value": "insomnia/8.6.1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"numero_Card\": \"1234 5678 9012 3456\",\n \"titular_Card\": \"John Doe\",\n \"data_expiracao\": \"12/2025\",\n \"codigo_seguranca\": \"124\",\n \"userId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_payment}}/card/1",
+							"host": [
+								"{{url_payment}}"
+							],
+							"path": [
+								"card",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos Cartões",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "insomnia/8.6.1"
+							}
+						],
+						"url": {
+							"raw": "{{url_payment}}/card",
+							"host": [
+								"{{url_payment}}"
+							],
+							"path": [
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Cartões por Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "insomnia/8.6.1"
+							}
+						],
+						"url": {
+							"raw": "{{url_payment}}/card/1",
+							"host": [
+								"{{url_payment}}"
+							],
+							"path": [
+								"card",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclui um Cartão",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "insomnia/8.6.1"
+							}
+						],
+						"url": {
+							"raw": "{{url_payment}}/card/1",
+							"host": [
+								"{{url_payment}}"
+							],
+							"path": [
+								"card",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_items",
+			"value": "localhost:8082"
+		},
+		{
+			"key": "url_shopping_cart",
+			"value": "localhost:8083",
+			"type": "string"
+		},
+		{
+			"key": "url_users",
+			"value": "localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "url_payment",
+			"value": "localhost:8084",
+			"type": "string"
+		}
+	]
+}

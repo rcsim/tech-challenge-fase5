@@ -38,7 +38,7 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping("/chekout")
+    @PostMapping("/checkout")
     @Operation(summary = "Finalizar compra.")
     @ApiResponses(value = {
                 @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = PaymentDTO.class))}),

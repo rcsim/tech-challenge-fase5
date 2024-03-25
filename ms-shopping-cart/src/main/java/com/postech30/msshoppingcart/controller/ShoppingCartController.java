@@ -139,8 +139,8 @@ public class ShoppingCartController {
             @ApiResponse(responseCode = "404", description = "Recurso não encontrado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor.", content = {@Content(mediaType = "application/json")})
     })
-    public ResponseEntity<ShoppingCartDTO> removeProductsFromShoppingCart(@PathVariable Long id, @RequestBody Long productId) {
-        var shoppingCart = shoppingCartService.removeProductFromShoppingCart(id, productId);
+    public ResponseEntity<ShoppingCartDTO> removeProductsFromShoppingCart(@PathVariable Long id, @RequestBody List<Long> productIds) {
+        var shoppingCart = shoppingCartService.removeProductFromShoppingCart(id, productIds);
         return ResponseEntity.status(HttpStatus.OK).body(shoppingCart);
     }
 
