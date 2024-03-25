@@ -1,19 +1,20 @@
 package com.postech30.msusermanager.service;
 
-import com.postech30.msusermanager.dto.CreateUserDTO;
-import com.postech30.msusermanager.dto.RecoverUserDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.postech30.msusermanager.dto.UserDTO;
+import com.postech30.msusermanager.entity.User;
+import com.postech30.msusermanager.exception.UsuarioNaoEncontradoException;
 
 import java.util.List;
 
 public interface UserService {
-    Page<RecoverUserDTO> searchUser(String searchUser, Pageable pageable);
 
-    CreateUserDTO createUser(CreateUserDTO createUserDTO);
+    public List<UserDTO> findAll();
 
-    RecoverUserDTO findById(Long id);
-    void updateUser(Long id, RecoverUserDTO recoverUserDTO);
-    void deleteUser(Long id);
-    List<RecoverUserDTO> findUserByRoleId(Long id);
+    public UserDTO findById(Long id) throws UsuarioNaoEncontradoException;
+
+    public UserDTO save(UserDTO user);
+
+    public UserDTO updateUser(Long id, UserDTO userDTO) throws UsuarioNaoEncontradoException;
+
+    public void deleteById(Long id) throws UsuarioNaoEncontradoException;
 }
