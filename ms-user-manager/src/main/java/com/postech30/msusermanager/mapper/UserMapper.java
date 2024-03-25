@@ -2,6 +2,7 @@ package com.postech30.msusermanager.mapper;
 
 import com.postech30.msusermanager.dto.UserDTO;
 import com.postech30.msusermanager.entity.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserMapper {
 
@@ -11,14 +12,17 @@ public class UserMapper {
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(user.getPassword());
         userDTO.setEmail(user.getEmail());
+        userDTO.setUserRole(user.getRole());
         return userDTO;
     }
 
     public static User toEntity(UserDTO userDTO) {
         User user = new User();
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userDTO.getPassword());
         user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(encryptedPassword);
         user.setEmail(userDTO.getEmail());
+        user.setRole(userDTO.getUserRole());
         return user;
     }
 }
