@@ -35,10 +35,10 @@ public class ItemController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar todos os itens.")
+    @Operation(summary = "Listar todos os itens.",
+            description = "Listar todos os itens cadastrados no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -50,10 +50,10 @@ public class ItemController {
     }
 
     @GetMapping("/user/{userId}")
-    @Operation(summary = "Listar todos os itens cadastrados pelo usuário.")
+    @Operation(summary = "Listar todos os itens cadastrados pelo usuário.",
+            description = "Listar todos os itens cadastrados no sistema pelo usuário.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -65,10 +65,10 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Listar item cadastrados pelo Id.")
+    @Operation(summary = "Listar item cadastrados pelo Id.",
+            description = "Listar item cadastrado no sistema pelo Id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -80,7 +80,8 @@ public class ItemController {
     }
 
     @PostMapping("/itemsByIds")
-    @Operation(summary = "Listar itens por uma lista de IDs.")
+    @Operation(summary = "Listar itens por uma lista de IDs.",
+            description = "Listar itens cadastrados no sistema por uma lista de IDs.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
@@ -94,9 +95,9 @@ public class ItemController {
     }
 
     @PostMapping
-    @Operation(summary = "Adicionar um item.")
+    @Operation(summary = "Adicionar um item.",
+            description = "Adicionar um item no sistema.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
             @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
@@ -109,10 +110,10 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Atualizar um item.")
+    @Operation(summary = "Atualizar um item.",
+            description = "Atualizar um item no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),
@@ -124,10 +125,10 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir um item.")
+    @Operation(summary = "Excluir um item.",
+            description = "Excluir um item no sistema.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem-sucedida.", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Item.class))}),
-            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "401", description = "Não autorizado.", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "403", description = "Acesso proibido.", content = {@Content(mediaType = "application/json")}),

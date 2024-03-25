@@ -104,8 +104,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .map(ProductMapper::toDTO)
                 .collect(Collectors.toList());
 
-        //currentProductsDTO.addAll(products);
-
         currentProductsDTO = productService.getProductsDetails(currentProductsDTO);
 
         shoppingCart.setProducts(currentProductsDTO.stream()
