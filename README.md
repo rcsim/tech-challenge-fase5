@@ -36,6 +36,10 @@ O sistema opera de forma que o usuário deve efetuar login para obter o token JW
 ![image](https://github.com/rcsim/tech-challenge-fase5/assets/30301531/8807962f-f2c5-4779-a184-9a155a5c1728)
 
 
+![image](https://github.com/rcsim/tech-challenge-fase5/assets/30301531/be87ba88-7d78-492d-817b-7282ac0342d2)
+
+
+
 
 ### Banco de Dados
 
@@ -112,7 +116,6 @@ http://localhost:8084/swagger-ui/index.html#/
 Disponibilizamos um de arquivo JSON com todas as requisições Postman para testar a API, os arquivos estão disponíveis nos seguintes links:
 
 https://github.com/rcsim/tech-challenge-fase5/blob/main/Tech-Challenge-5.postman_collection.json
-
 
 ## Conclusões 
 
