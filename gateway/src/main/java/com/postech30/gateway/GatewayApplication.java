@@ -29,6 +29,7 @@ public class GatewayApplication {
 	public RouterFunction<ServerResponse> cardRoute() {
 		return route("card_route")
 				.GET("/card/*", http("http://ms-payment:8084/card/*"))
+				.GET("/card", http("http://ms-payment:8084/card"))
 				.POST("/card", http("http://ms-payment:8084/card"))
 				.PUT("/card/*", http("http://ms-payment:8084/card/*"))
 				.DELETE("/card/*", http("http://ms-payment:8084/card/*"))
@@ -45,6 +46,7 @@ public class GatewayApplication {
 	public RouterFunction<ServerResponse> cartRoute() {
 		return route("cart_route")
 				.GET("/shopping-cart/*", http("http://ms-shopping-cart:8083/shopping-cart/*"))
+				.GET("/shopping-cart", http("http://ms-shopping-cart:8083/shopping-cart"))
 				.POST("/shopping-cart", http("http://ms-shopping-cart:8083/shopping-cart"))
 				.PUT("/shopping-cart/*", http("http://ms-shopping-cart:8083/shopping-cart/*"))
 				.DELETE("/shopping-cart/*", http("http://ms-shopping-cart:8083/shopping-cart/*"))
@@ -55,6 +57,7 @@ public class GatewayApplication {
 	public RouterFunction<ServerResponse> itemRoute() {
 		return route("item_route")
 				.GET("/items/*", http("http://ms-item:8082/items/*"))
+				.GET("/items", http("http://ms-item:8082/items"))
 				.POST("/items", http("http://ms-item:8082/items"))
 				.PUT("/items/*", http("http://ms-item:8082/items/*"))
 				.DELETE("/items/*", http("http://ms-item:8082/items/*"))
@@ -64,6 +67,7 @@ public class GatewayApplication {
 	public RouterFunction<ServerResponse> userRoute() {
 		return route("item_route")
 				.GET("/users/*", http("http://ms-user-manager:8081/users/*"))
+				.GET("/users", http("http://ms-user-manager:8081/users"))
 				.POST("/users", http("http://ms-user-manager:8081/users"))
 				.PUT("/users/*", http("http://ms-user-manager:8081/users/*"))
 				.DELETE("/users/*", http("http://ms-user-manager:8081/users/*"))
