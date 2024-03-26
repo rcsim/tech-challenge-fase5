@@ -3,7 +3,6 @@ package com.postech30.msitems.service;
 import com.postech30.msitems.model.Item;
 import com.postech30.msitems.repository.ItemRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
