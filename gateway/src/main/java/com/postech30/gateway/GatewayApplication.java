@@ -61,7 +61,7 @@ public class GatewayApplication {
 		return route("item_route")
 				.GET("/items/*", http("http://ms-item:8082/items/*"))
 				.GET("/items", http("http://ms-item:8082/items"))
-				.GET("/items/itemsByIds", http("http://ms-item:8082/items/itemsByIds"))
+				.POST("/items/itemsByIds", http("http://ms-item:8082/items/itemsByIds"))
 				.GET("/items/user/*", http("http://ms-item:8082/items/user/*"))
 				.POST("/items", http("http://ms-item:8082/items"))
 				.PUT("/items/*", http("http://ms-item:8082/items/*"))
