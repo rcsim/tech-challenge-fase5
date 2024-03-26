@@ -46,6 +46,9 @@ public class GatewayApplication {
 	public RouterFunction<ServerResponse> cartRoute() {
 		return route("cart_route")
 				.GET("/shopping-cart/*", http("http://ms-shopping-cart:8083/shopping-cart/*"))
+				.GET("/shopping-cart/*/clear", http("http://ms-shopping-cart:8083/shopping-cart/*/clear"))
+				.GET("/shopping-cart/*/remove", http("http://ms-shopping-cart:8083/shopping-cart/*/remove"))
+				.GET("/shopping-cart/*/products", http("http://ms-shopping-cart:8083/shopping-cart/*/products"))
 				.GET("/shopping-cart", http("http://ms-shopping-cart:8083/shopping-cart"))
 				.POST("/shopping-cart", http("http://ms-shopping-cart:8083/shopping-cart"))
 				.PUT("/shopping-cart/*", http("http://ms-shopping-cart:8083/shopping-cart/*"))
@@ -58,6 +61,8 @@ public class GatewayApplication {
 		return route("item_route")
 				.GET("/items/*", http("http://ms-item:8082/items/*"))
 				.GET("/items", http("http://ms-item:8082/items"))
+				.GET("/items/itemsByIds", http("http://ms-item:8082/items/itemsByIds"))
+				.GET("/items/user/*", http("http://ms-item:8082/items/user/*"))
 				.POST("/items", http("http://ms-item:8082/items"))
 				.PUT("/items/*", http("http://ms-item:8082/items/*"))
 				.DELETE("/items/*", http("http://ms-item:8082/items/*"))
@@ -72,6 +77,7 @@ public class GatewayApplication {
 				.PUT("/users/*", http("http://ms-user-manager:8081/users/*"))
 				.DELETE("/users/*", http("http://ms-user-manager:8081/users/*"))
 				.POST("/login", http("http://ms-user-manager:8081/login"))
+
 				.build();
 	}
 }
