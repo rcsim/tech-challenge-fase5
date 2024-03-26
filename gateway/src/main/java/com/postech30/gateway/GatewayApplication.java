@@ -46,9 +46,9 @@ public class GatewayApplication {
 	public RouterFunction<ServerResponse> cartRoute() {
 		return route("cart_route")
 				.GET("/shopping-cart/*", http("http://ms-shopping-cart:8083/shopping-cart/*"))
-				.GET("/shopping-cart/*/clear", http("http://ms-shopping-cart:8083/shopping-cart/*/clear"))
-				.GET("/shopping-cart/*/remove", http("http://ms-shopping-cart:8083/shopping-cart/*/remove"))
-				.GET("/shopping-cart/*/products", http("http://ms-shopping-cart:8083/shopping-cart/*/products"))
+				.PUT("/shopping-cart/*/clear", http("http://ms-shopping-cart:8083/shopping-cart/*/clear"))
+				.PUT("/shopping-cart/*/remove", http("http://ms-shopping-cart:8083/shopping-cart/*/remove"))
+				.PUT("/shopping-cart/*/products", http("http://ms-shopping-cart:8083/shopping-cart/*/products"))
 				.GET("/shopping-cart", http("http://ms-shopping-cart:8083/shopping-cart"))
 				.POST("/shopping-cart", http("http://ms-shopping-cart:8083/shopping-cart"))
 				.PUT("/shopping-cart/*", http("http://ms-shopping-cart:8083/shopping-cart/*"))
