@@ -2,7 +2,7 @@
 ## Repositório para o Tech Challenge Fase 5 - Grupo 30
 Este repositório contém o código-fonte e a documentação para o Tech Challenge - Fase 5, desenvolvido pelo Grupo 30.
 
-O projeto consiste em uma sistema de e-commerce utilizando uma arquitetura com microserviços. Além do projetos Spring Framework, Spring Boot e Sping Data, também utilizamos neste projeto o Spring Security.
+O projeto consiste em uma sistema de e-commerce utilizando uma arquitetura com microserviços. Além do Spring Framework, Spring Boot e Sping Data, também utilizamos neste projeto as bibliotecas Spring Security e Spring Gateway.
 
 ## 1- Relatório Técnico
 Tecnologias e ferramentas utilizadas
@@ -17,6 +17,7 @@ Tecnologias e ferramentas utilizadas
 * Bibliotecas:
   * Spring Web
   * Spring Security
+  * Spring Gateway
   * OpenAPI
   * Lombok
     
@@ -27,6 +28,14 @@ Tecnologias e ferramentas utilizadas
   * Docker 
 
 ## Configurações da solução
+
+### Arquitetura
+
+O sistema opera de forma que o usuário deve efetuar login para obter o token JWT, necessário para acessar as demais rotas através do gateway. Dentro do gateway, é realizada uma validação para determinar a validade do token. Caso o token seja inválido, o sistema retornará um erro 401 (Unauthorized). Se o token for válido, o usuário será redirecionado para a próxima rota.
+
+![image](https://github.com/rcsim/tech-challenge-fase5/assets/30301531/8807962f-f2c5-4779-a184-9a155a5c1728)
+
+
 
 ### Banco de Dados
 
@@ -107,9 +116,8 @@ https://github.com/rcsim/tech-challenge-fase5/blob/main/Tech-Challenge-5.postman
 
 ## Conclusões 
 
-O projeto foi concluído com êxito, atendendo integralmente aos requisitos propostos no desafio. A escolha criteriosa das tecnologias e ferramentas desempenhou um papel fundamental, proporcionando um ambiente propício para o desenvolvimento eficiente e robusto do sistema. Destaca-se o enfoque dedicado à implementação de endpoints reativos com Spring WebFlux, constituindo o principal ponto de aprendizado nesta etapa. Vale ressaltar que, devido à novidade desse paradigma para alguns membros do grupo, foram necessários esforços adicionais para assimilação e aplicação efetiva.
-
-As principais dificuldades encontradas estão relacionadas à incorporação do protocolo HLS para o streaming de vídeos e à hospedagem destes na AWS S3. Conforme mencionado anteriormente, o paradigma de programação reativa também se configurou como um ponto de atenção, dada sua novidade para parte dos integrantes. Essas questões exigiram uma abordagem cuidadosa e estratégica para superação, demonstrando a capacidade do grupo em lidar com desafios complexos.
+O projeto foi concluído com êxito, atendendo plenamente aos requisitos estabelecidos no desafio. As tecnologias e ferramentas adotadas demonstraram ser adequadas para o propósito do sistema, contribuindo para um desenvolvimento eficiente e robusto.
+As principais dificuldades encontradas estão relacionadas a utilização, configuração e compreensão, do Spring Security e Spring Gateway. A complexidade dessas tecnologias exigiu um esforço adicional por parte da equipe para garantir uma implementação eficaz e sem falhas.
 
 
 
